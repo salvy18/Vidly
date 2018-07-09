@@ -1,0 +1,65 @@
+﻿
+@*@model Vidly.ViewModels.CustomerListViewModel*@
+
+@* He changed this to IEnumerable of customers instead*@
+@model IEnumerable <Vidly.Models.Customer>
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Customers</h2>
+
+@if (!Model.Any())
+{
+       <p>We do not have any customers yet</p>
+}
+else
+{
+
+
+        @*<div class="panel panel-default">
+            <div class="panel-heading">Customers</div>
+                <table class="table" style="width :100%; padding : 3px 4px 5px 6px">
+        
+                @foreach (var customer in Model)
+                    {
+                            <tr>
+                                <td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>
+                                <td>@customer.MembershipType.DiscountRate</td>
+                            </tr>
+                    }
+                </table>
+         </div>*@
+
+    <div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Discount</th>
+                    <th>Membership Type Name</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in Model)
+                {
+
+                    <tr>
+                        <td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>
+                        <td>@customer.MembershipType.DiscountRate%</td>  
+                        <td>@customer.MembershipType.Name</td> 
+                        <td>@Html.ActionLink("Edit", "Edit", "Customers", new { id = customer.Id }, null)</td>
+                        <td>@Html.ActionLink("New", "New", "Customers", new { id = customer.Id},null)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+ }
