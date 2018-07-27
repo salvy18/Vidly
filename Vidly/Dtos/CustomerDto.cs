@@ -20,7 +20,10 @@ namespace Vidly.Dtos
 
         public byte MembershipTypeId { get; set; }
 
-        [Min18YearsifAMember]
+        public MembershipDto MembershipType { get; set; }
+
+        //following was commented because if you look at its implementation detail we are casting the validation to customer object
+        //[Min18YearsifAMember]
         public DateTime? Birthday { get; set; }
 
         

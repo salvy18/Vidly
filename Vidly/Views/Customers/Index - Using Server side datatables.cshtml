@@ -1,0 +1,117 @@
+﻿@*@model Vidly.ViewModels.CustomerListViewModel*@
+
+@* He changed this to IEnumerable of customers instead*@
+@model IEnumerable<Vidly.Models.Customer>
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Customers</h2>
+
+@if (!Model.Any())
+{
+    <p>We do not have any customers yet</p>
+}
+else
+{
+
+
+    @*<div class="panel panel-default">
+           <div class="panel-heading">Customers</div>
+               <table class="table" style="width :100%; padding : 3px 4px 5px 6px">
+
+               @foreach (var customer in Model)
+                   {
+                           <tr>
+                               <td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>
+                               <td>@customer.MembershipType.DiscountRate</td>
+                           </tr>
+                   }
+               </table>
+        </div>*@
+
+    <div>
+        <table id="customers" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Discount</th>
+                    <th>Membership Type Name</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in Model)
+                {
+
+                    <tr>
+                        <td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>
+                        <td>@customer.MembershipType.DiscountRate%</td>
+                        <td>@customer.MembershipType.Name</td>
+                        <td>@Html.ActionLink("Edit", "Edit", "Customers", new { id = customer.Id }, null)</td>
+                        <td>@Html.ActionLink("New", "New", "Customers", new { id = customer.Id }, null)</td>
+                        @* using data-customer-id we record the customer ID*@
+                        <td>
+                            <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+}
+
+@section scripts
+{
+    <script>
+        //This is the standard JQuery to specify JQuery code
+        $(document).ready(function () {
+            $("#customers").DataTable();
+
+            // The translation of the code below is get the customer table and find all elements with the js-delete class and on click do something
+            //$("#customers .js-delete").on("click", function () {
+
+            // Now this will replace the line above, the translation is get the customer table and on click only for hte one that match the "js-delete" elment do something
+            $("#customers").on("click", ".js-delete", function () {
+
+                // With this variable we have a reference of the actual button that was clicked
+                var button = $(this);
+
+                //Confirmation screen using bootbox
+                bootbox.confirm("Are you sure you want to deletethis customer?", function(result) {
+
+                    if (result) {
+
+                        //call our API using JQuery Ajax and we pass an object
+                        $.ajax({
+                            //we set the URL of our API
+                            url: "/api/customers/" + button.attr("data-customer-id"),
+                            method: "DELETE",
+                    @* if the API return sucess then we remove the element from  HTML using the below code *@
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+
+                    })
+                  
+                    }
+
+                });
+
+                //Regular confirmation 
+                //if (confirm(" Are you sure to delete this file?")) {
+                //};
+
+            });
+        });
+
+    </script>
+
+}

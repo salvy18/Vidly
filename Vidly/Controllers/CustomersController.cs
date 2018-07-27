@@ -28,15 +28,18 @@ namespace Vidly.Controllers
         public ActionResult Index ()
         {
             //One way to retrieve Customers
-            var customers = _context.Customers.Include( c => c.MembershipType).ToList();
-            
+
+            //The line below was removed because we are now retriving the data via an WEb API in the index therefore we do not need a model
+            //var customers = _context.Customers.Include( c => c.MembershipType).ToList();
+
             //Another way to retrieve customers
             //var customers = GetCustomers();
 
             //var viewModel = new CustomerListViewModel();
             //viewModel.CustomerList = customers;
+            //return View(customers);
 
-            return View(customers);
+            return View();
         }
 
         public ActionResult New()
