@@ -9,6 +9,6 @@ namespace Vidly.Dtos
     {
         public int id { get; set; }
         public string name { get; set; }
-
+        public byte DiscountRate { get; set; }
     }
 }

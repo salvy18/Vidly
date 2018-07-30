@@ -41,16 +41,36 @@
                         //First column
                         data: "name",
                         render: function (data, type, customer) {
-                            return "<a href='/customers/edit/" + customer.id + "'>" + customer.name + "</a>";
+                            return "<a href='/customers/details/" + customer.id + "'>" + customer.name + "</a>";
                         }
                     },
                     {
-                        //second column
+                        //Second column
+
+                        data: "membershipType.discountRate"
+                    },
+                    {
+                        //Third column
 
                         data: "membershipType.name"
                     },
                     {
-                        //Thrid Column
+                        //Create column
+                        data: "name",
+                        render: function (data, type, customer) {
+                            return "<a href='/customers/new" + "'>New" + "</a>";
+                        }
+                    },
+                    {
+                        //Edit column
+                        data: "name",
+                        render: function (data, type, customer) {
+                            // Previous return "<a href='/customers/edit/" + customer.id + "'>" + customer.name + "</a>";
+                            return "<a href='/customers/edit/" + customer.id + "'>Edit" + "</a>";
+                        }
+                    },
+                    {
+                        //Delete Column
                         data: "id",
                         render: function (data) {
                             return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
