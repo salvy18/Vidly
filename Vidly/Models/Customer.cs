@@ -10,6 +10,7 @@ namespace Vidly.Models
     [Table("Customers")]
     public class Customer
     {
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage ="Please enter custome's name.")]

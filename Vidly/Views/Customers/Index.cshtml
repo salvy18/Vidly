@@ -30,8 +30,9 @@
     <script>
         //This is the standard JQuery to specify JQuery code
         $(document).ready(function () {
-            $("#customers").DataTable({
-                ajax: {
+            // $("#customers").DataTable({  - This is how we used to do it without having a reference to the entire DataTable
+            var table = $("#customers").DataTable({
+                 ajax: {
                     url: "/api/customers",
                     dataSrc: ""
 
@@ -99,7 +100,8 @@
                             method: "DELETE",
                     @* if the API return sucess then we remove the element from  HTML using the below code *@
                         success: function () {
-                            button.parents("tr").remove();
+                            //button.parents("tr").remove();  - This is how it used to be now we are removing the record from the DataTable internal list
+                            table.row(button.parents("tr")).remove().draw();
                         }
 
                     })

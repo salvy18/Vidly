@@ -9,6 +9,7 @@ namespace Vidly.Models
 {
     public class MembershipType
     {
+        [Key]
         public byte Id { get; set; }
         [StringLength(100)]
         public string Name { get; set; }

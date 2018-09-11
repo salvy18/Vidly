@@ -26,6 +26,7 @@ namespace Vidly.Controllers.Api
 
         public IHttpActionResult GetCustomers()
         {
+            var ids = _context.Customers.Select(x => x.Id).ToArray();
             var customerDtos = _context.Customers
                 .Include(c => c.MembershipType)
                 .ToList()

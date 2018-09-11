@@ -17,13 +17,13 @@ namespace Vidly.Models
         public MyContext():base("MyDatabase")
         {
 #if DEBUG
-            this.Database.Log = s => Debug.WriteLine(s);
+           // this.Database.Log = s => Debug.WriteLine(s);
 #endif
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+          //  base.OnModelCreating(modelBuilder);
         }
     }
 }
