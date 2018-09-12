@@ -55,15 +55,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
-    </Reference>
-    <Reference Include="Glimpse.AspNet, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Glimpse.AspNet.1.8.0\lib\net45\Glimpse.AspNet.dll</HintPath>
-    </Reference>
-    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -199,14 +190,16 @@
     <Compile Include="Controllers\Api\CustomersController2.cs" />
     <Compile Include="Controllers\Api\MoviesController.cs" />
     <Compile Include="Controllers\Api\PreviousCustomersController.cs" />
-    <Compile Include="Controllers\Api\RegisterMoviesController.cs" />
+    <Compile Include="Controllers\Api\NewRentalsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\CustomersController3 UsingServerSide.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\RentalsController.cs" />
     <Compile Include="Dtos\CustomerDto.cs" />
     <Compile Include="Dtos\MembershipDto.cs" />
     <Compile Include="Dtos\MovieDto.cs" />
+    <Compile Include="Dtos\NewRentalDto.cs" />
     <Compile Include="GenericTest.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -303,6 +296,14 @@
     <Compile Include="Migrations\201806112205231_GenreModificationOnRequiredField1.Designer.cs">
       <DependentUpon>201806112205231_GenreModificationOnRequiredField1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809112041236_CreatedRentalContext.cs" />
+    <Compile Include="Migrations\201809112041236_CreatedRentalContext.Designer.cs">
+      <DependentUpon>201809112041236_CreatedRentalContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809121601341_addedAvailabilityColumnToMovies.cs" />
+    <Compile Include="Migrations\201809121601341_addedAvailabilityColumnToMovies.Designer.cs">
+      <DependentUpon>201809121601341_addedAvailabilityColumnToMovies.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DateValidation.cs" />
@@ -311,6 +312,7 @@
     <Compile Include="Models\Min18YearsifAMember.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\MyContext.cs" />
+    <Compile Include="Models\Rental.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CustomerListViewModel.cs" />
     <Compile Include="ViewModels\CustomerFormViewModel.cs" />
@@ -541,6 +543,7 @@
     <Content Include="Views\Customers\CustomerForm.cshtml" />
     <Content Include="Views\Movies\MovieForm.cshtml" />
     <Content Include="Views\Customers\Index - Using Server side datatables.cshtml" />
+    <Content Include="Views\Rentals\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -627,6 +630,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806112205231_GenreModificationOnRequiredField1.resx">
       <DependentUpon>201806112205231_GenreModificationOnRequiredField1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809112041236_CreatedRentalContext.resx">
+      <DependentUpon>201809112041236_CreatedRentalContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809121601341_addedAvailabilityColumnToMovies.resx">
+      <DependentUpon>201809121601341_addedAvailabilityColumnToMovies.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
