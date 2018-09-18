@@ -24,16 +24,28 @@ namespace Vidly.Controllers.Api
         // GET /api/customers
         //public IEnumerable<CustomerDto> GetCustomers()
 
-        public IHttpActionResult GetCustomers()
+        public IHttpActionResult GetCustomers( string query = null)
         {
-            var ids = _context.Customers.Select(x => x.Id).ToArray();
-            var customerDtos = _context.Customers
-                .Include(c => c.MembershipType)
+
+            var customersQuery = _context.Customers.Include(c => c.MembershipType);
+
+
+            //If parameter is passed then get all residents that match that name
+            if (!String.IsNullOrWhiteSpace(query))
+            {
+                customersQuery = customersQuery.Where(c=> c.Name.Contains(query));
+            }
+
+
+            //var ids = _context.Customers.Select(x => x.Id).ToArray();
+            var customerDtos = customersQuery
                 .ToList()
                 .Select(Mapper.Map<Customer, CustomerDto>);
 
             return Ok(customerDtos);
         }
+
+
 
 
         // GET /api/customers/1  (signle customer)
@@ -52,6 +64,8 @@ namespace Vidly.Controllers.Api
             //return Mapper.Map<Customer,CustomerDto>(customer);  This was used when returning DTO
             return Ok( Mapper.Map<Customer, CustomerDto>(customer));
         }
+
+        
 
         //POST /api/customers  (creating a customer)
         //this was changed from customerdto to httpactionresult
@@ -76,7 +90,7 @@ namespace Vidly.Controllers.Api
 
         //PUT /api/customer/1 (modifying a customer)
         [HttpPut]
-        public void UpdateCustomer (int id, CustomerDto customerDto)
+        public IHttpActionResult UpdateCustomer (int id, CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
             {
@@ -93,11 +107,13 @@ namespace Vidly.Controllers.Api
 
            _context.SaveChanges();
 
+            return Ok();
+
         }
 
         // DELETE /api/customer/1
         [HttpDelete]
-        public void DeleteCustomer (int id)
+        public IHttpActionResult DeleteCustomer (int id)
         {
             var customerInDB = _context.Customers.SingleOrDefault(c => c.Id == id);
             if (customerInDB == null)
@@ -107,6 +123,8 @@ namespace Vidly.Controllers.Api
 
             _context.Customers.Remove(customerInDB);
             _context.SaveChanges();
+
+            return Ok();
         }
 
 
