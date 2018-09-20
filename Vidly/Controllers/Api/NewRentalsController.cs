@@ -70,14 +70,25 @@ namespace Vidly.Controllers.Api
                 //For each movie rented we decrement one
                 movie.NumberAvailable--;
 
+
                 var rental = new Rental
                 {
                     Customer = customer,
                     Movie = movie,
+                    //Customer = new Customer
+                    //{
+                    //    Id = 14
+                    //},
+
+                    //Movie = new Movie
+                    //{
+                    //   Id = 3
+
+                    //},
                     DateRented = DateTime.Now
                 };
 
-                movie.NumberAvailable--;
+                
                 _myContext.Rentals.Add(rental);
                 
 

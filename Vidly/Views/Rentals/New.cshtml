@@ -10,14 +10,14 @@
     <div class="form-group">
         <label>Customer</label>
         <div class="tt-container">
-            <input id="customer" type="text" value="" class="form-control" />
+            <input id="customer" name="customer" data-rule-validCustomer="true"  required  type="text" value="" class="form-control" />
         </div>
     </div>
 
     <div class="form-group">
         <label>Movie</label>
         <div class="tt-container">
-            <input type="text" id="movie" value="" class="form-control" />
+            <input  id="movie" name="movie" type="text" data-rule-atLeastOneMovie="true"   value="" class="form-control" />
         </div>
     </div>
 
@@ -32,12 +32,14 @@
 
 @section scripts {
     
+    @Scripts.Render("~/bundles/jqueryval")
+
     <script>
 
         $(document).ready(function () {
             var vm = {
-                customerID: 0,
-                movieIDs: [],
+                 customerID: 0,
+                 movieIDs: [],
             };
 
             
@@ -88,6 +90,7 @@
                 minLength: 3,
                 highlight: true
             }, {
+                    limit: 10,
                     name: 'movies',
                     display: 'name',
                     source: movies
@@ -102,27 +105,73 @@
                 });
 
 
-            $("#newRental").submit(function (e) {
+            $.validator.addMethod("validCustomer", function () {
+                return vm.customerID && vm.customerID !== 0;
 
-                e.preventDefault(); // this will prevent the form to summit normally if you do not do that it will not use Ajax
+            },"Please select a valid customer");
 
-                $.ajax({
-                    url: "/api/NewRentals",
-                    method: "post",
-                    data: vm
 
-                })
-                    .done(function () {
-                        //here we put when sucess 
-                        console.log("Sucess");
+            $.validator.addMethod("atLeastOneMovie", function () {
+                return vm.movieIDs.length > 0;
+                //return vm.movieIDs[0] && vm.movieIDs[] !== 0;
+            }, "Please select at least one movie.");
 
-                    }).fail(function () {
-                        //here we put when something going wrong
-                        console.log("fail");
-                    });
 
+
+            $("#newRental").validate({
+
+                submitHandler: function () {
+                    //With this the form wil be validated if is validated will execute the below code which will be summiting the form
+                    //No using the prevent default now this works by returning a false at end of the fuction
+                    //.preventDefault(); // this will prevent the form to summit normally if you do not do that it will not use Ajax
+
+                    $.ajax({
+                        url: "/api/NewRentals",
+                        method: "post",
+                        data: vm
+
+                    })
+                        .done(function () {
+                            //here we put when sucess 
+                            toastr.success("Rentals successfully recorded.");
+                            console.log("Sucess");
+
+                        }).fail(function () {
+                            //here we put when something going wrong
+                            toastr.error("Something unexpected happened");
+                            console.log("fail");
+                        });
+
+                    return false;
+                }
 
             });
+
+
+            //This was the previous code to summit the form without validations
+            //$("#newRental").submit(function (e) {
+
+            //    e.preventDefault(); // this will prevent the form to summit normally if you do not do that it will not use Ajax
+
+            //    $.ajax({
+            //        url: "/api/NewRentals",
+            //        method: "post",
+            //        data: vm
+
+            //    })
+            //        .done(function () {
+            //            //here we put when sucess 
+            //            toastr.success("Rentals successfully recorded.");
+            //            console.log("Sucess");
+
+            //        }).fail(function () {
+            //            //here we put when something going wrong
+            //            toastr.error("Something unexpected happened");
+            //            console.log("fail");
+            //        });
+
+
+            //});
 
 
 

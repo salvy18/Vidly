@@ -147,6 +147,9 @@ namespace Vidly.Controllers
 
             if (movie.Id == 0)
             {
+
+                movie.NumberAvailable = movie.NumberAvailable;
+                movie.NumberAvailable = movie.NumberAvailable == 0 ? 100: movie.NumberAvailable;
                 _context.Movies.Add(movie);
             }
             else
@@ -157,6 +160,8 @@ namespace Vidly.Controllers
                 recordInDB.ReleaseDate = movie.ReleaseDate;
                 recordInDB.DateAdded = movie.DateAdded;
                 recordInDB.NumberInStock = movie.NumberInStock;
+                recordInDB.NumberAvailable = movie.NumberInStock;
+                recordInDB.NumberAvailable = movie.NumberAvailable == 0 ? 100 : movie.NumberAvailable;
             }
 
             _context.SaveChanges();

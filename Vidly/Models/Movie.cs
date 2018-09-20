@@ -36,7 +36,7 @@ namespace Vidly.Models
         [Display(Name = "Date added")]
         public DateTime DateAdded { get; set; }
 
-        [Range(1,20,ErrorMessage = "The field Number in Stock must be between 1 - 20")]
+       // [Range(1,20,ErrorMessage = "The field Number in Stock must be between 1 - 20")]
         [Column("Number_In_Stock ")]
         [Display(Name = "Number in Stock")]
         public int NumberInStock { get; set; }
