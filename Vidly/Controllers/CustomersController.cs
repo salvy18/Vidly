@@ -12,6 +12,7 @@ namespace Vidly.Controllers
     public class CustomersController : Controller
     {
         private MyContext _context;
+        
 
         public CustomersController()
         {

@@ -28,9 +28,9 @@ namespace Vidly
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/boostrap-lumen.css",
+                      "~/Content/bootstrap-united.css",
                       "~/Content/datatables/css/datatables.bootstrap.css",
-                      "~/Content/typeahead.css",
+                      "~/Content/typeahead-vidly.css",
                       "~/Content/toastr.css",
                       "~/Content/site.css"));
         }
