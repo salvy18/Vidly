@@ -118,7 +118,7 @@
 
 
 
-            $("#newRental").validate({
+            var validator =  $("#newRental").validate({
 
                 submitHandler: function () {
                     //With this the form wil be validated if is validated will execute the below code which will be summiting the form
@@ -135,6 +135,15 @@
                             //here we put when sucess 
                             toastr.success("Rentals successfully recorded.");
                             console.log("Sucess");
+
+                            //This section will clear the variables as well as the form
+                            $("#customer").typeahead("val", "");
+                            $("#movie").typeahead("val", "");
+                            $("#movies").empty();
+                            vm = { movieIDs: [] };
+                            validator.resetForm();
+
+
 
                         }).fail(function () {
                             //here we put when something going wrong
